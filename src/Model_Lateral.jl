@@ -62,13 +62,14 @@ end
 
 
 """
-    model_Lateral(; n_layers, scale=0.01f0)
+    model_Lateral(; n_layers, n_in, scale=0.01f0)
 直接返回构建好的侧向流耦合模型结构。
 """
-function model_Lateral(; n_layers, scale=0.01f0)
-    # 这里定义了 vert 和 lat 是如何组合的
+
+function model_Lateral(; n_layers, n_in, scale=0.01f0) 
     return (
-        vert = build_vertical_net(; n_layers=n_layers, scale=scale), 
+        # 传递 n_in 给 build_vertical_net
+        vert = build_vertical_net(; n_layers=n_layers, n_in=n_in, scale=scale), 
         lat  = build_lateral_net(; n_layers=n_layers, scale=scale)  
     )
 end

@@ -1,7 +1,8 @@
 using Lux, Random, Optimisers, ComponentArrays, Statistics, Printf
 using MLUtils, Enzyme, RTableTools, Plots, NNlib
+using RTableTools
 using SoilMoistureDL
-
+using Random
 
 
 begin
@@ -23,9 +24,10 @@ end
 
 
 n_layer = size(Y_train, 1)
+n_in = size(X_train, 1) # <--- 获取输入特征数
 rng = Random.Xoshiro(42)
 
-lateral_model = model_Lateral(; n_layers=n_layer, scale=0.01f0)
+lateral_model = model_Lateral(; n_layers=n_layer, n_in=n_in, scale=0.01f0)
 ps, st = Lux.setup(rng, lateral_model)# 初始化参数
 
 # 传入不同的model，predict，loss_function
@@ -53,5 +55,5 @@ println(">>> 测试集 NSE: $test_nse")
         q_test,         # 测试集通量
         split_idx;      # 切分点
         depth_labels = ["5cm", "10cm", "20cm", "50cm", "100cm"],
-        save_path = "Result_Lateral_AllLayers.png"
+        save_path = "./Figure/Result_Lateral_AllLayers.png"
     )

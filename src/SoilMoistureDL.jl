@@ -5,7 +5,6 @@ using Random
 using Optimisers
 using ComponentArrays
 using Statistics
-using Printf
 using MLUtils
 using Enzyme
 using Plots
